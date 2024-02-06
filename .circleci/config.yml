@@ -1,0 +1,18 @@
+version: 2.1
+
+jobs:
+    build:
+      docker:
+          - image: circleci/openjdk:17-jdk
+      steps:
+            - checkout
+      test:
+          filters:
+            branches:
+              only:
+                - master
+workflows:
+  maven_test:
+    jobs:
+      - maven/test:
+          command: '-X verify'
