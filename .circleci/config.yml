@@ -4,22 +4,24 @@ orbs:
   maven: circleci/maven@4.0.0
 
 jobs:
-    build:
-      docker:
-          - image: circleci/openjdk:17-jdk
-      steps:
-            - checkout
-    test:
-      docker:
-        - image: circleci/openjdk:17-jdk
-      steps:
-        - checkout
-      filters:
-        branches:
-          only:
-            - master
+  build:
+    docker:
+      - image: circleci/openjdk:17-jdk
+    steps:
+      - checkout
+
+  test:
+    docker:
+      - image: circleci/openjdk:17-jdk
+    steps:
+      - checkout
 
 workflows:
   maven_test:
     jobs:
-      - maven/test
+      - build
+      - test:
+          filters:
+            branches:
+              only:
+                - master
