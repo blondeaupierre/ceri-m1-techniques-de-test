@@ -16,7 +16,7 @@ public class IPokemonMetadataProviderTest {
 
     @BeforeAll
     public static void setUp() {
-        pokemonMetadata = new PokemonMetadata(1, "Bulbasaur", 126, 126, 90);
+        pokemonMetadata = new PokemonMetadata(1, "ulbasaur", 126, 126, 90);
     }
     @Test
     public void testGetName() {
