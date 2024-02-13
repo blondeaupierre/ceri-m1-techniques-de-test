@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  maven: circleci/maven@1.4.1
+
 jobs:
   build:
     docker:
@@ -17,7 +20,7 @@ workflows:
   maven_test:
     jobs:
       - build
-      - test:
+      - maven/test:
           filters:
             branches:
               only:
