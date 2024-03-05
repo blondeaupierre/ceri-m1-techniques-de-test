@@ -28,7 +28,7 @@ workflows:
                 - master
   upload-to-codecov:
     jobs:
-      - checkout
+      - build
       - codecov/upload
       - upload-to-codecov:
           requires:
