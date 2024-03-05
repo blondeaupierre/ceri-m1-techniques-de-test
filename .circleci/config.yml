@@ -10,9 +10,6 @@ jobs:
       - image: cimg/openjdk:21.0.2
     steps:
       - checkout
-      - run:
-          name: Upload Coverage report
-          command: bash <(curl -s https://codecov.io/bash)
 
   test:
     docker:
@@ -20,16 +17,25 @@ jobs:
     steps:
       - checkout
 
+    maven/test:
+      filters:
+        branches:
+          only:
+            - master
+
+  upload-to-codecov:
+    docker:
+      - image: cimg/openjdk:21.0.2
+    steps:
+        - checkout
+        - codecov/upload
+        - run:
+            name: Upload to Codecov
+            command: bash <(curl -s https://codecov.io/bash)
+
 workflows:
   maven_test:
     jobs:
       - build
-      - maven/test:
-          filters:
-            branches:
-              only:
-                - master
-      - upload-to-codecov:
-          jobs:
-            - checkout
-            - codecov/upload
+      - maven/test
+      - upload-to-codecov
