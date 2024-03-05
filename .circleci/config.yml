@@ -24,8 +24,8 @@ jobs:
       - checkout
       - codecov/upload
       - run:
-        name: "Tests with JaCoCo coverage"
-        command: mvn clean verify jacoco:report
+          name: "Tests with JaCoCo coverage"
+          command: mvn clean verify jacoco:report
       - run:
           name: Upload to Codecov
           command: bash <(curl -s https://codecov.io/bash)
