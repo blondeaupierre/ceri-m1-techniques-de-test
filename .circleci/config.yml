@@ -17,11 +17,11 @@ jobs:
     steps:
       - checkout
 
-    maven/test:
-      filters:
-        branches:
-          only:
-            - master
+  maven/test:
+    filters:
+      branches:
+        only:
+          - master
 
   upload-to-codecov:
     docker:
