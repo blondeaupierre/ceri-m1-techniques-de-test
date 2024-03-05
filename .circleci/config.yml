@@ -17,6 +17,13 @@ jobs:
     steps:
       - checkout
 
+  upload-to-codecov:
+    docker:
+      - image: cimg/openjdk:21.0.2
+    steps:
+      - checkout
+      - codecov/upload
+
 workflows:
   maven_test:
     jobs:
@@ -26,10 +33,6 @@ workflows:
             branches:
               only:
                 - master
-  upload-to-codecov:
-    jobs:
-      - build
-      - codecov/upload
       - upload-to-codecov:
           requires:
             - maven/test
