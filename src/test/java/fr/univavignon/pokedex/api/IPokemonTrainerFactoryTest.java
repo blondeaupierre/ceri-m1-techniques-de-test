@@ -28,6 +28,12 @@ public class IPokemonTrainerFactoryTest {
     }
 
     @Test
+    public void testCreateTrainer() {
+        PokemonTrainer trainer = pokemonTrainerFactory.createTrainer("baka", Team.VALOR, pokedexFactory);
+        assertEquals(pokemonTrainerFactory.createTrainer("baka", Team.VALOR, pokedexFactory), trainer);
+    }
+
+    @Test
     public void testGetName() {
         PokemonTrainer trainer = pokemonTrainerFactory.createTrainer("baka", Team.VALOR, pokedexFactory);
         assertEquals("baka", trainer.getName());
