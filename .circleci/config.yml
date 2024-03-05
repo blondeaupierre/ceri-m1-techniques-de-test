@@ -23,11 +23,13 @@ jobs:
 workflows:
   maven_test:
     jobs:
-      - checkout
-      - codecov/upload
       - build
       - maven/test:
           filters:
             branches:
               only:
                 - master
+      - upload-to-codecov:
+          jobs:
+            - checkout
+            - codecov/upload
