@@ -22,13 +22,13 @@ jobs:
       - image: cimg/openjdk:21.0.2
     steps:
       - checkout
-      - codecov/upload
       - run:
           name: "Tests with JaCoCo coverage"
           command: mvn clean verify jacoco:report
       - run:
-          name: Upload to Codecov
+          name: "Upload to Codecov"
           command: bash <(curl -s https://codecov.io/bash)
+      - codecov/upload
 
 workflows:
   maven_test:
