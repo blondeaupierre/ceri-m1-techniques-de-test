@@ -44,6 +44,16 @@ public class IPokedexTest {
     @Test
     public void testGetPokemon() throws PokedexException {
         assertEquals(pokedex.getPokemon(1), pokemon);
+        assertEquals(pokedex.getPokemon(1).getIndex(), 1);
+        assertEquals(pokedex.getPokemon(1).getName(), "Bulbizarre");
+        assertEquals(pokedex.getPokemon(1).getAttack(), 126);
+        assertEquals(pokedex.getPokemon(1).getDefense(), 126);
+        assertEquals(pokedex.getPokemon(1).getStamina(), 90);
+        assertEquals(pokedex.getPokemon(1).getCp(), 613);
+        assertEquals(pokedex.getPokemon(1).getHp(), 64);
+        assertEquals(pokedex.getPokemon(1).getDust(), 2500);
+        assertEquals(pokedex.getPokemon(1).getCandy(), 2);
+        assertEquals(pokedex.getPokemon(1).getIv(), 0.91);
     }
 
     @Test
