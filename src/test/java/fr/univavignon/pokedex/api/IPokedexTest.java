@@ -6,6 +6,7 @@ import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -51,7 +52,20 @@ public class IPokedexTest {
     }
 
     @Test
-    public void testGetPokemonsWithOrder() {
-        assertEquals(pokedex.getPokemons(null), new ArrayList<Pokemon>());
+    public void testGetPokemonComparatorName() {
+        List<Pokemon> pokemons = pokedex.getPokemons(PokemonComparators.NAME);
+        assertEquals(pokemons, new ArrayList<Pokemon>());
+    }
+
+    @Test
+    public void testGetPokemonComparatorIndex() {
+        List<Pokemon> pokemons = pokedex.getPokemons(PokemonComparators.INDEX);
+        assertEquals(pokemons, new ArrayList<Pokemon>());
+    }
+
+    @Test
+    public void testGetPokemonComparatorCP() {
+        List<Pokemon> pokemons = pokedex.getPokemons(PokemonComparators.CP);
+        assertEquals(pokemons, new ArrayList<Pokemon>());
     }
 }
