@@ -57,6 +57,15 @@ public class IPokedexTest {
     }
 
     @Test
+    public void testThrowsGetPokemon() {
+        try {
+            pokedex.getPokemon(2);
+        } catch (PokedexException e) {
+            assertEquals(e.getMessage(), "Invalid index.");
+        }
+    }
+
+    @Test
     public void testGetPokemons() {
         assertEquals(pokedex.getPokemons(), new ArrayList<Pokemon>());
     }
