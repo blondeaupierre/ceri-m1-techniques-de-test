@@ -57,11 +57,12 @@ public class IPokedexTest {
     }
 
     @Test
-    public void testThrowsGetPokemon() {
+    public void testThrowsGetPokemon() throws PokedexException {
+        when(pokedex.getPokemon(0)).thenThrow(new PokedexException("Invalid index"));
         try {
-            pokedex.getPokemon(2);
+            pokedex.getPokemon(-10);
         } catch (PokedexException e) {
-            assertEquals(e.getMessage(), "Invalid index.");
+            assertEquals(e.getMessage(), "Invalid index");
         }
     }
 
