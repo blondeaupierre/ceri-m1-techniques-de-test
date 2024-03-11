@@ -13,7 +13,6 @@ import static org.mockito.Mockito.when;
 
 public class IPokedexTest {
 
-    // Comment tester inteface qui n'a pas d'implémentations ?
     @Mock
     private static IPokedex pokedex;
 
@@ -33,7 +32,7 @@ public class IPokedexTest {
 
     @Test
     public void testSize() {
-        assertEquals(pokedex.size(), 4);
+        assertEquals(4, pokedex.size());
     }
 
     @Test
