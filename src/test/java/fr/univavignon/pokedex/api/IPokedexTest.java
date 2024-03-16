@@ -50,7 +50,8 @@ public class IPokedexTest {
 
     @Test
     public void testAddPokedex() {
-        assertEquals(pokedex.addPokemon(pokemon), pokemon.getIndex());
+        Pokemon pokemonToAdd = new Pokemon(3, "Salamèche", 128, 128, 92, 615, 66, 2502, 4, 0.93);
+        assertEquals(pokedex.addPokemon(pokemonToAdd), pokemonToAdd.getIndex());
     }
 
     @Test
