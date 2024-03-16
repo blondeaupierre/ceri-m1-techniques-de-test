@@ -123,6 +123,22 @@ public class IPokedexTest {
     }
 
     @Test
+    public void testCreatePokemonException() throws PokedexException {
+        IPokemonFactory pokemonFactory = new PokemonFactory();
+        PokemonMetadata pokemonMetadata = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
+        List<PokemonMetadata> Metadatas = new ArrayList<>();
+        Metadatas.add(pokemonMetadata);
+
+        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
+        IPokedex newPokedex = new Pokedex(pokemonMetadataProvider, pokemonFactory);
+        try {
+            newPokedex.createPokemon(-10, 10, 10, 10, 10);
+        } catch (PokedexException e) {
+            assertEquals(e.getMessage(), "Invalid index");
+        }
+    }
+
+    @Test
     public void testGetPokemonMetadata() throws PokedexException {
         PokemonMetadata pokemonMetadata1 = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
         PokemonMetadata pokemonMetadata2 = new PokemonMetadata(11, "Raichu", 101, 101, 101);
@@ -131,10 +147,21 @@ public class IPokedexTest {
         Metadatas.add(pokemonMetadata2);
         IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
 
-        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getIndex(), 10);
-        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getName(), "Pikachu");
-        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getAttack(), 100);
-        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getDefense(), 100);
-        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getStamina(), 100);
+        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10), pokemonMetadata1);
+    }
+
+    @Test
+    public void testGetPokemonMetadataException() throws PokedexException {
+        PokemonMetadata pokemonMetadata1 = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
+        PokemonMetadata pokemonMetadata2 = new PokemonMetadata(11, "Raichu", 101, 101, 101);
+        List<PokemonMetadata> Metadatas = new ArrayList<>();
+        Metadatas.add(pokemonMetadata1);
+        Metadatas.add(pokemonMetadata2);
+        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
+        try {
+            pokemonMetadataProvider.getPokemonMetadata(-10);
+        } catch (PokedexException e) {
+            assertEquals(e.getMessage(), "Invalid index");
+        }
     }
 }
