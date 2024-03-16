@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -64,15 +65,14 @@ public class IPokedexTest {
         assertEquals(pokedex.getPokemon(0).getDust(), 2500);
         assertEquals(pokedex.getPokemon(0).getCandy(), 2);
         assertEquals(pokedex.getPokemon(0).getIv(), 0.91);
-    }
 
-    @Test
-    public void testThrowsGetPokemon() throws PokedexException {
-        try {
+        assertThrows(PokedexException.class, () -> {
             pokedex.getPokemon(-10);
-        } catch (PokedexException e) {
-            assertEquals(e.getMessage(), "Invalid index");
-        }
+        });
+
+        assertThrows(PokedexException.class, () -> {
+            pokedex.getPokemon(200);
+        });
     }
 
     @Test
@@ -120,22 +120,14 @@ public class IPokedexTest {
         assertEquals(pokemon.getDust(), 10);
         assertEquals(pokemon.getCandy(), 10);
         assertEquals(pokemon.getIv(), 0);
-    }
 
-    @Test
-    public void testCreatePokemonException() throws PokedexException {
-        IPokemonFactory pokemonFactory = new PokemonFactory();
-        PokemonMetadata pokemonMetadata = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
-        List<PokemonMetadata> Metadatas = new ArrayList<>();
-        Metadatas.add(pokemonMetadata);
-
-        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
-        IPokedex newPokedex = new Pokedex(pokemonMetadataProvider, pokemonFactory);
-        try {
+        assertThrows(PokedexException.class, () -> {
             newPokedex.createPokemon(-10, 10, 10, 10, 10);
-        } catch (PokedexException e) {
-            assertEquals(e.getMessage(), "Invalid index");
-        }
+        });
+
+        assertThrows(PokedexException.class, () -> {
+            newPokedex.createPokemon(200, 10, 10, 10, 10);
+        });
     }
 
     @Test
@@ -148,20 +140,13 @@ public class IPokedexTest {
         IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
 
         assertEquals(pokemonMetadataProvider.getPokemonMetadata(10), pokemonMetadata1);
-    }
 
-    @Test
-    public void testGetPokemonMetadataException() throws PokedexException {
-        PokemonMetadata pokemonMetadata1 = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
-        PokemonMetadata pokemonMetadata2 = new PokemonMetadata(11, "Raichu", 101, 101, 101);
-        List<PokemonMetadata> Metadatas = new ArrayList<>();
-        Metadatas.add(pokemonMetadata1);
-        Metadatas.add(pokemonMetadata2);
-        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
-        try {
+        assertThrows(PokedexException.class, () -> {
             pokemonMetadataProvider.getPokemonMetadata(-10);
-        } catch (PokedexException e) {
-            assertEquals(e.getMessage(), "Invalid index");
-        }
+        });
+
+        assertThrows(PokedexException.class, () -> {
+            pokemonMetadataProvider.getPokemonMetadata(200);
+        });
     }
 }
