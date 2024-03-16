@@ -79,6 +79,7 @@ public class IPokedexTest {
     public void testGetPokemons() {
         List<Pokemon> pokemons = pokedex.getPokemons();
         Assertions.assertTrue(pokemons.contains(pokemon));
+        Assertions.assertTrue(pokemons.contains(pokemon2));
     }
 
     @Test
@@ -138,8 +139,11 @@ public class IPokedexTest {
         metadatas.add(pokemonMetadata1);
         metadatas.add(pokemonMetadata2);
         IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(metadatas);
+        IPokemonFactory pokemonFactory = new PokemonFactory();
 
-        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10), pokemonMetadata1);
+        IPokedex newPokedex = new Pokedex(pokemonMetadataProvider, pokemonFactory);
+
+        assertEquals(newPokedex.getPokemonMetadata(10), pokemonMetadata1);
 
         assertThrows(PokedexException.class, () -> {
             pokemonMetadataProvider.getPokemonMetadata(-10);
