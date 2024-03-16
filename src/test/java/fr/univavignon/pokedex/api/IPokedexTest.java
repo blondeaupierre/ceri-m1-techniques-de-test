@@ -148,5 +148,9 @@ public class IPokedexTest {
         assertThrows(PokedexException.class, () -> {
             pokemonMetadataProvider.getPokemonMetadata(200);
         });
+
+        assertThrows(PokedexException.class, () -> {
+            pokemonMetadataProvider.getPokemonMetadata(12);
+        });
     }
 }
