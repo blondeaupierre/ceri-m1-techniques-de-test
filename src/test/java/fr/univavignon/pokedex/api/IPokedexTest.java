@@ -134,10 +134,10 @@ public class IPokedexTest {
     public void testGetPokemonMetadata() throws PokedexException {
         PokemonMetadata pokemonMetadata1 = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
         PokemonMetadata pokemonMetadata2 = new PokemonMetadata(11, "Raichu", 101, 101, 101);
-        List<PokemonMetadata> Metadatas = new ArrayList<>();
-        Metadatas.add(pokemonMetadata1);
-        Metadatas.add(pokemonMetadata2);
-        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
+        List<PokemonMetadata> metadatas = new ArrayList<>();
+        metadatas.add(pokemonMetadata1);
+        metadatas.add(pokemonMetadata2);
+        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(metadatas);
 
         assertEquals(pokemonMetadataProvider.getPokemonMetadata(10), pokemonMetadata1);
 
