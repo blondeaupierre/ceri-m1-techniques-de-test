@@ -7,8 +7,16 @@ import java.util.List;
 public class Pokedex implements IPokedex {
 
     private List<Pokemon> pokemons;
+    private IPokemonMetadataProvider pokemonMetadataProvider;
+    private IPokemonFactory pokemonFactory;
 
     public Pokedex() {
+        pokemons = new ArrayList<Pokemon>();
+    }
+
+    public Pokedex(IPokemonMetadataProvider pokemonMetadataProvider, IPokemonFactory pokemonFactory) {
+        this.pokemonMetadataProvider = pokemonMetadataProvider;
+        this.pokemonFactory = pokemonFactory;
         pokemons = new ArrayList<Pokemon>();
     }
     @Override
@@ -23,11 +31,11 @@ public class Pokedex implements IPokedex {
     }
 
     @Override
-    public Pokemon getPokemon(int id) throws PokedexException {
-        if (id < 0 || id >= pokemons.size()) {
+    public Pokemon getPokemon(int index) throws PokedexException {
+        if (index < 0 || index >= pokemons.size()) {
             throw new PokedexException("Invalid index");
         }
-        return pokemons.get(id);
+        return pokemons.get(index);
     }
 
     @Override
@@ -43,15 +51,19 @@ public class Pokedex implements IPokedex {
 
     @Override
     public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) throws PokedexException {
-        PokemonMetadata pokemonMetadata = getPokemonMetadata(index);
-        if (pokemonMetadata == null) {
+        if (index < 0 || index >= pokemons.size()) {
             throw new PokedexException("Invalid index");
         }
-        return new Pokemon(index, pokemonMetadata.getName(), pokemonMetadata.getAttack(), pokemonMetadata.getDefense(), pokemonMetadata.getStamina(), cp, hp, dust, candy, 0);
+        Pokemon pokemonTMP = pokemonFactory.createPokemon(index, cp, hp, dust, candy);
+        PokemonMetadata pokemonMetadata = pokemonMetadataProvider.getPokemonMetadata(index);
+        return new Pokemon(index, pokemonMetadata.getName(), pokemonMetadata.getAttack(), pokemonMetadata.getDefense(), pokemonMetadata.getStamina(), pokemonTMP.getCp(), pokemonTMP.getHp(), pokemonTMP.getDust(), pokemonTMP.getCandy(), pokemonTMP.getIv());
     }
 
     @Override
     public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
-       return null;
+        if (index < 0 || index >= pokemons.size()) {
+            throw new PokedexException("Invalid index");
+        }
+       return pokemonMetadataProvider.getPokemonMetadata(index);
     }
 }
