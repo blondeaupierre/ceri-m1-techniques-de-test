@@ -11,7 +11,7 @@ public class Pokedex implements IPokedex {
     private IPokemonFactory pokemonFactory;
 
     public Pokedex() {
-        pokemons = new ArrayList<Pokemon>();
+        pokemons = new ArrayList<>();
     }
 
     public Pokedex(IPokemonMetadataProvider pokemonMetadataProvider, IPokemonFactory pokemonFactory) {
@@ -32,7 +32,7 @@ public class Pokedex implements IPokedex {
 
     @Override
     public Pokemon getPokemon(int index) throws PokedexException {
-        if (index < 0 || index >= pokemons.size()) {
+        if (index < 0 || index >= 151) {
             throw new PokedexException("Invalid index");
         }
         return pokemons.get(index);
@@ -51,7 +51,7 @@ public class Pokedex implements IPokedex {
 
     @Override
     public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) throws PokedexException {
-        if (index < 0 || index >= pokemons.size()) {
+        if (index < 0 || index >= 151) {
             throw new PokedexException("Invalid index");
         }
         Pokemon pokemonTMP = pokemonFactory.createPokemon(index, cp, hp, dust, candy);
@@ -61,7 +61,7 @@ public class Pokedex implements IPokedex {
 
     @Override
     public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
-        if (index < 0 || index >= pokemons.size()) {
+        if (index < 0 || index >= 151) {
             throw new PokedexException("Invalid index");
         }
        return pokemonMetadataProvider.getPokemonMetadata(index);

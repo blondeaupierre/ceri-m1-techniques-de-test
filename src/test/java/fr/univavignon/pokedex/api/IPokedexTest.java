@@ -16,10 +16,7 @@ import static org.mockito.Mockito.when;
 
 public class IPokedexTest {
 
-    //@Mock
     private static IPokedex pokedex;
-
-    //@Mock
     private static Pokemon pokemon;
     private static Pokemon pokemon2;
 
@@ -100,5 +97,44 @@ public class IPokedexTest {
     public void testGetPokemonComparatorCP() {
         List<Pokemon> pokemons = pokedex.getPokemons(PokemonComparators.CP);
         Assertions.assertTrue(pokemons.indexOf(pokemon) < pokemons.indexOf(pokemon2));
+    }
+
+    @Test
+    public void testCreatePokemon() throws PokedexException {
+        IPokemonFactory pokemonFactory = new PokemonFactory();
+        PokemonMetadata pokemonMetadata = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
+        List<PokemonMetadata> Metadatas = new ArrayList<>();
+        Metadatas.add(pokemonMetadata);
+
+        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
+        IPokedex newPokedex = new Pokedex(pokemonMetadataProvider, pokemonFactory);
+        Pokemon pokemon = newPokedex.createPokemon(10, 10, 10, 10, 10);
+
+        assertEquals(pokemon.getIndex(), 10);
+        assertEquals(pokemon.getName(), "Pikachu");
+        assertEquals(pokemon.getAttack(), 100);
+        assertEquals(pokemon.getDefense(), 100);
+        assertEquals(pokemon.getStamina(), 100);
+        assertEquals(pokemon.getCp(), 10);
+        assertEquals(pokemon.getHp(), 10);
+        assertEquals(pokemon.getDust(), 10);
+        assertEquals(pokemon.getCandy(), 10);
+        assertEquals(pokemon.getIv(), 0);
+    }
+
+    @Test
+    public void testGetPokemonMetadata() throws PokedexException {
+        PokemonMetadata pokemonMetadata1 = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
+        PokemonMetadata pokemonMetadata2 = new PokemonMetadata(11, "Raichu", 101, 101, 101);
+        List<PokemonMetadata> Metadatas = new ArrayList<>();
+        Metadatas.add(pokemonMetadata1);
+        Metadatas.add(pokemonMetadata2);
+        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
+
+        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getIndex(), 10);
+        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getName(), "Pikachu");
+        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getAttack(), 100);
+        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getDefense(), 100);
+        assertEquals(pokemonMetadataProvider.getPokemonMetadata(10).getStamina(), 100);
     }
 }
