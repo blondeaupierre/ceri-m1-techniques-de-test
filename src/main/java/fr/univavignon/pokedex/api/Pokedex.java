@@ -61,9 +61,6 @@ public class Pokedex implements IPokedex {
 
     @Override
     public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
-        if (index < 0 || index >= 151) {
-            throw new PokedexException("Invalid index");
-        }
        return pokemonMetadataProvider.getPokemonMetadata(index);
     }
 }
