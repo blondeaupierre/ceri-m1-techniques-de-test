@@ -18,13 +18,29 @@ import static org.mockito.Mockito.when;
 public class IPokedexTest {
 
     private static IPokedex pokedex;
+
+    @Mock
     private static Pokemon pokemon;
+
+    @Mock
     private static Pokemon pokemon2;
+
+    @Mock
+    private static Pokemon pokemonToAdd;
+
+    @Mock
+    static IPokemonFactory pokemonFactory;
+
+    @Mock
+    static PokemonMetadata pokemonMetadata;
+    @Mock
+    static PokemonMetadata pokemonMetadata2;
+    @Mock
+    static IPokemonMetadataProvider pokemonMetadataProvider;
 
     @BeforeAll
     public static void setUp() throws PokedexException {
         /*
-        pokedex = mock(IPokedex.class);
         pokemon = new Pokemon(1, "Bulbizarre", 126, 126, 90, 613, 64, 2500, 2, 0.91);
         when(pokedex.size()).thenReturn(4);
         when(pokedex.getPokemon(1)).thenReturn(pokemon);
@@ -34,21 +50,81 @@ public class IPokedexTest {
         when(pokedex.getPokemon(-10)).thenThrow(new PokedexException("Invalid index"));
         */
         pokedex = new Pokedex();
-        pokemon = new Pokemon(1, "Bulbizarre", 126, 126, 90, 613, 64, 2500, 2, 0.91);
-        pokemon2 = new Pokemon(2, "Pickachu", 127, 127, 91, 614, 65, 2501, 3, 0.92);
+
+        pokemon = mock(Pokemon.class);
+        pokemon2 = mock(Pokemon.class);
+
+        when(pokemon.getIndex()).thenReturn(1);
+        when(pokemon.getName()).thenReturn("Bulbizarre");
+        when(pokemon.getAttack()).thenReturn(126);
+        when(pokemon.getDefense()).thenReturn(126);
+        when(pokemon.getStamina()).thenReturn(90);
+        when(pokemon.getCp()).thenReturn(613);
+        when(pokemon.getHp()).thenReturn(64);
+        when(pokemon.getDust()).thenReturn(2500);
+        when(pokemon.getCandy()).thenReturn(2);
+        when(pokemon.getIv()).thenReturn(0.91);
+
+        when(pokemon2.getIndex()).thenReturn(2);
+        when(pokemon2.getName()).thenReturn("Pickachu");
+        when(pokemon2.getAttack()).thenReturn(127);
+        when(pokemon2.getDefense()).thenReturn(127);
+        when(pokemon2.getStamina()).thenReturn(91);
+        when(pokemon2.getCp()).thenReturn(614);
+        when(pokemon2.getHp()).thenReturn(65);
+        when(pokemon2.getDust()).thenReturn(2501);
+        when(pokemon2.getCandy()).thenReturn(3);
+        when(pokemon2.getIv()).thenReturn(0.92);
+
+        pokemonToAdd = mock(Pokemon.class);
+        when(pokemonToAdd.getIndex()).thenReturn(3);
+        when(pokemonToAdd.getName()).thenReturn("Salameche");
+        when(pokemonToAdd.getAttack()).thenReturn(100);
+        when(pokemonToAdd.getDefense()).thenReturn(100);
+        when(pokemonToAdd.getStamina()).thenReturn(100);
+        when(pokemonToAdd.getCp()).thenReturn(10);
+        when(pokemonToAdd.getHp()).thenReturn(10);
+        when(pokemonToAdd.getDust()).thenReturn(10);
+        when(pokemonToAdd.getCandy()).thenReturn(10);
+        when(pokemonToAdd.getIv()).thenReturn(0.0);
 
         pokedex.addPokemon(pokemon);
         pokedex.addPokemon(pokemon2);
+
+        pokemonMetadata = mock(PokemonMetadata.class);
+        when(pokemonMetadata.getIndex()).thenReturn(3);
+        when(pokemonMetadata.getName()).thenReturn("Salameche");
+        when(pokemonMetadata.getAttack()).thenReturn(100);
+        when(pokemonMetadata.getDefense()).thenReturn(100);
+        when(pokemonMetadata.getStamina()).thenReturn(100);
+
+        pokemonMetadata2 = mock(PokemonMetadata.class);
+        when(pokemonMetadata2.getIndex()).thenReturn(4);
+        when(pokemonMetadata2.getName()).thenReturn("Raichu");
+        when(pokemonMetadata2.getAttack()).thenReturn(101);
+        when(pokemonMetadata2.getDefense()).thenReturn(101);
+        when(pokemonMetadata2.getStamina()).thenReturn(101);
+
+        pokemonMetadataProvider = mock(IPokemonMetadataProvider.class);
+        when(pokemonMetadataProvider.getPokemonMetadata(3)).thenReturn(pokemonMetadata);
+        when(pokemonMetadataProvider.getPokemonMetadata(4)).thenReturn(pokemonMetadata2);
+        when(pokemonMetadataProvider.getPokemonMetadata(-10)).thenThrow(new PokedexException("Invalid index"));
+        when(pokemonMetadataProvider.getPokemonMetadata(200)).thenThrow(new PokedexException("Invalid index"));
+        when(pokemonMetadataProvider.getPokemonMetadata(12)).thenThrow(new PokedexException("PokemonMetadata not found for index " + 12));
+
+        pokemonFactory = mock(IPokemonFactory.class);
+        when(pokemonFactory.createPokemon(3, 10, 10, 10, 10)).thenReturn(pokemonToAdd);
+        when(pokemonFactory.createPokemon(-10, 10, 10, 10, 10)).thenThrow(new PokedexException("Invalid index"));
+        when(pokemonFactory.createPokemon(200, 10, 10, 10, 10)).thenThrow(new PokedexException("Invalid index"));
     }
 
     @Test
     public void testSize() {
-        assertEquals(pokedex.size(),2);
+        assertEquals(2, pokedex.size());
     }
 
     @Test
     public void testAddPokedex() {
-        Pokemon pokemonToAdd = new Pokemon(3, "Salamèche", 128, 128, 92, 615, 66, 2502, 4, 0.93);
         assertEquals(pokedex.addPokemon(pokemonToAdd), pokemonToAdd.getIndex());
     }
 
@@ -102,17 +178,11 @@ public class IPokedexTest {
 
     @Test
     public void testCreatePokemon() throws PokedexException {
-        IPokemonFactory pokemonFactory = new PokemonFactory();
-        PokemonMetadata pokemonMetadata = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
-        List<PokemonMetadata> Metadatas = new ArrayList<>();
-        Metadatas.add(pokemonMetadata);
-
-        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(Metadatas);
         IPokedex newPokedex = new Pokedex(pokemonMetadataProvider, pokemonFactory);
-        Pokemon pokemon = newPokedex.createPokemon(10, 10, 10, 10, 10);
+        Pokemon pokemon = newPokedex.createPokemon(3, 10, 10, 10, 10);
 
-        assertEquals(pokemon.getIndex(), 10);
-        assertEquals(pokemon.getName(), "Pikachu");
+        assertEquals(pokemon.getIndex(), 3);
+        assertEquals(pokemon.getName(), "Salameche");
         assertEquals(pokemon.getAttack(), 100);
         assertEquals(pokemon.getDefense(), 100);
         assertEquals(pokemon.getStamina(), 100);
@@ -120,7 +190,7 @@ public class IPokedexTest {
         assertEquals(pokemon.getHp(), 10);
         assertEquals(pokemon.getDust(), 10);
         assertEquals(pokemon.getCandy(), 10);
-        assertEquals(pokemon.getIv(), 0);
+        assertEquals(pokemon.getIv(), 0.0);
 
         assertThrows(PokedexException.class, () -> {
             newPokedex.createPokemon(-10, 10, 10, 10, 10);
@@ -133,17 +203,13 @@ public class IPokedexTest {
 
     @Test
     public void testGetPokemonMetadata() throws PokedexException {
-        PokemonMetadata pokemonMetadata1 = new PokemonMetadata(10, "Pikachu", 100, 100, 100);
-        PokemonMetadata pokemonMetadata2 = new PokemonMetadata(11, "Raichu", 101, 101, 101);
         List<PokemonMetadata> metadatas = new ArrayList<>();
-        metadatas.add(pokemonMetadata1);
+        metadatas.add(pokemonMetadata);
         metadatas.add(pokemonMetadata2);
-        IPokemonMetadataProvider pokemonMetadataProvider = new PokemonMetadataProvider(metadatas);
-        IPokemonFactory pokemonFactory = new PokemonFactory();
 
         IPokedex newPokedex = new Pokedex(pokemonMetadataProvider, pokemonFactory);
 
-        assertEquals(newPokedex.getPokemonMetadata(10), pokemonMetadata1);
+        assertEquals(newPokedex.getPokemonMetadata(10), pokemonMetadataProvider.getPokemonMetadata(10));
 
         assertThrows(PokedexException.class, () -> {
             pokemonMetadataProvider.getPokemonMetadata(-10);
