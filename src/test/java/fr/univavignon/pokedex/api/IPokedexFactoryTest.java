@@ -11,10 +11,13 @@ import static org.mockito.Mockito.when;
 public class IPokedexFactoryTest {
 
     private static IPokedexFactory pokedexFactory;
+
     @Mock
     private static IPokemonMetadataProvider pokemonMetadataProvider;
+
     @Mock
     private static IPokemonFactory pokemonFactory;
+
     @Mock
     private static IPokedex pokedex;
 

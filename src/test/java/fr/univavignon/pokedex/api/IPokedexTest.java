@@ -33,8 +33,10 @@ public class IPokedexTest {
 
     @Mock
     static PokemonMetadata pokemonMetadata;
+
     @Mock
     static PokemonMetadata pokemonMetadata2;
+
     @Mock
     static IPokemonMetadataProvider pokemonMetadataProvider;
 
