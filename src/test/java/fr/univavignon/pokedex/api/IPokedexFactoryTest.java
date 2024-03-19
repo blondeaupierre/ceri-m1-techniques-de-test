@@ -18,9 +18,6 @@ public class IPokedexFactoryTest {
     @Mock
     private static IPokemonFactory pokemonFactory;
 
-    @Mock
-    private static IPokedex pokedex;
-
     @BeforeAll
     public static void setUp() {
         pokemonMetadataProvider = mock(IPokemonMetadataProvider.class);
