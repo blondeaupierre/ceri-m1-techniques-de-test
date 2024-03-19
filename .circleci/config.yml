@@ -37,7 +37,7 @@ jobs:
       - checkout
       - run:
           name: "Checkstyle"
-          command: mvn checkstyle:check
+          command: mvn checkstyle:check -Dcheckstyle.config.location=checkstyle.xml
 
 workflows:
   maven_test:
