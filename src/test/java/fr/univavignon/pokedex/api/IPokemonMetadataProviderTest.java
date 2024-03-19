@@ -4,20 +4,36 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class IPokemonMetadataProviderTest {
 
-    @Mock
+
     private static IPokemonMetadataProvider pokemonMetadataProvider;
+
+    @Mock
+    private static List<PokemonMetadata> pokemonMetadatas;
 
     @BeforeAll
     public static void setUp() throws PokedexException {
-        pokemonMetadataProvider = mock(IPokemonMetadataProvider.class);
-        when(pokemonMetadataProvider.getPokemonMetadata(1)).thenReturn(new PokemonMetadata(1, "Bulbasaur", 126, 126, 90));
 
+        pokemonMetadatas = new ArrayList<>();
+
+        PokemonMetadata pokemonMetadata1 = mock(PokemonMetadata.class);
+        when(pokemonMetadata1.getIndex()).thenReturn(1);
+        when(pokemonMetadata1.getName()).thenReturn("Bulbasaur");
+        when(pokemonMetadata1.getAttack()).thenReturn(126);
+        when(pokemonMetadata1.getDefense()).thenReturn(126);
+        when(pokemonMetadata1.getStamina()).thenReturn(90);
+
+        pokemonMetadatas.add(pokemonMetadata1);
+
+        pokemonMetadataProvider = new PokemonMetadataProvider(pokemonMetadatas);
     }
     @Test
     public void testGetName() throws PokedexException {
