@@ -30,6 +30,15 @@ jobs:
           command: bash <(curl -s https://codecov.io/bash)
       - codecov/upload
 
+  checkstyle:
+    docker:
+      - image: cimg/openjdk:21.0.2
+    steps:
+      - checkout
+      - run:
+          name: "Checkstyle"
+          command: mvn checkstyle:check
+
 workflows:
   maven_test:
     jobs:
@@ -42,3 +51,4 @@ workflows:
       - upload-to-codecov:
           requires:
             - maven/test
+      - checkstyle
