@@ -45,3 +45,4 @@ Si vous ne spécifiez pas de tag, le dernier commit à la date-heure de la fin d
 # Badges
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/WRoHsLXHhYWuabProeSYMi/NB5iUKhfeRPa4btZb3Dhgf/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/WRoHsLXHhYWuabProeSYMi/NB5iUKhfeRPa4btZb3Dhgf/tree/main)
 [![codecov](https://codecov.io/gh/blondeaupierre/ceri-m1-techniques-de-test/graph/badge.svg?token=KXPSENIOA3)](https://codecov.io/gh/blondeaupierre/ceri-m1-techniques-de-test)
+![Checkstyle](target/site/badges/checkstyle-result.svg)
