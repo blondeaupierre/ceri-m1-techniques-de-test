@@ -39,26 +39,34 @@ jobs:
           name: "Checkstyle"
           command: mvn checkstyle:check
 
-  javadoc:
+  create_javadoc:
     docker:
-      - image: node:8.10.0
+      - image: cimg/openjdk:21.0.2
     steps:
       - checkout
       - run:
           name: "Generate Javadoc"
           command: mvn javadoc:javadoc
+
+  upload_javadoc:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - run:
+          name: "Disable jekyll builds"
+          command: touch docs/_build/html/.nojekyll
       - run:
           name: "Install and configure dependencies"
           command: |
-              npm install -g --silent gh-pages@2.0.1
-              git config user.email "niono235@gmail.com"
-              git config user.name "blondeaupierre"
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "niono235@gmail.com"
+            git config user.name "blondeaupierre"
       - add_ssh_keys:
           fingerprints:
             - "SHA256:Jdtpsofzo92QaAly7txCBrMafDvHLzcyUGVHUi2nXNE"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist docs/
+          command: gh-pages --message "[skip ci] Update Javadoc" --dist docs/
 
 workflows:
   maven_test:
