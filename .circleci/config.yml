@@ -41,7 +41,7 @@ jobs:
 
   javadoc:
     docker:
-      - image: cimg/openjdk:21.0.2
+      - image: node:8.10.0
     steps:
       - checkout
       - run:
