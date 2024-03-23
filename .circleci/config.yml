@@ -81,4 +81,7 @@ workflows:
           requires:
             - maven/test
       - checkstyle
-      - javadoc
+      - create_javadoc
+      - upload_javadoc:
+          requires:
+            - create_javadoc
