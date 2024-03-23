@@ -94,14 +94,14 @@
                 <executions>
                     <execution>
                         <phase>test</phase>
+                        <configuration>
+                            <reportOutputDirectory>docs</reportOutputDirectory>
+                        </configuration>
                         <goals>
                             <goal>test-javadoc</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <doclint>none</doclint>
-                </configuration>
             </plugin>
         </plugins>
     </build>
