@@ -52,12 +52,11 @@
                 <version>3.3.1</version>
                 <executions>
                     <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
                         <configuration>
                             <configLocation>checkstyle.xml</configLocation>
                             <consoleOutput>true</consoleOutput>
                         </configuration>
+                        <phase>test</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
@@ -65,27 +64,7 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>com.github.bordertech.buildtools</groupId>
-                <artifactId>badger</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <id>create-checkstyle-badge</id>
-                        <phase>site</phase>
-                        <goals>
-                            <goal>badges</goal>
-                        </goals>
-                        <configuration>
-                            <outputDir>target/site/badges/</outputDir>
-                            <inputFiles>
-                                <inputFile>target/checkstyle-result.xml</inputFile>
-                            </inputFiles>
 
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
