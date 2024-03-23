@@ -7,5 +7,7 @@
     <module name="TreeWalker">
         <module name="AvoidStarImport"/>
         <module name="EmptyBlock"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
     </module>
 </module>
