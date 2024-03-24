@@ -42,6 +42,10 @@ Si vous ne spécifiez pas de tag, le dernier commit à la date-heure de la fin d
 
 # Groupe
 - Groupe : M1 alternant
+
+# Lien javadoc
+https://blondeaupierre.github.io/ceri-m1-techniques-de-test/testapidocs/fr/univavignon/pokedex/api/package-summary.html
+
 # Badges
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/WRoHsLXHhYWuabProeSYMi/NB5iUKhfeRPa4btZb3Dhgf/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/WRoHsLXHhYWuabProeSYMi/NB5iUKhfeRPa4btZb3Dhgf/tree/main)
 [![codecov](https://codecov.io/gh/blondeaupierre/ceri-m1-techniques-de-test/graph/badge.svg?token=KXPSENIOA3)](https://codecov.io/gh/blondeaupierre/ceri-m1-techniques-de-test)
