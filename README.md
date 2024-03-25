@@ -21,7 +21,7 @@ https://blondeaupierre.github.io/ceri-m1-techniques-de-test/testapidocs/fr/univa
 
 - Un pokemon peut-être défini avec n’importe quel index (pas de metadata, on gérait le range des index dans IPokemonMetadataProvider).
 
-- Tous pokémons avec un index négatif aura des statistiques d’attaque, défense et stamina = 1000.
+- Tout pokémon avec un index négatif aura des statistiques d’attaque, défense et stamina = 1000.
 
 - IV 0 ou 1 alors c'est un double dans notre cas + compris entre 0 et 15 normalement.
 
