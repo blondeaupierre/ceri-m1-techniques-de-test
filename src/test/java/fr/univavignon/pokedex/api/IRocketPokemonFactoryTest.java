@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class IPokemonFactoryTest {
+public class IRocketPokemonFactoryTest {
 
     private static IPokemonFactory pokemonFactory;
 
@@ -25,6 +25,8 @@ public class IPokemonFactoryTest {
         when(pokemonMetadataProvider.getPokemonMetadata(1)).thenReturn(new PokemonMetadata(1, "Bulbasaur", 126, 126, 90));
         pokemonFactory = new PokemonFactory(pokemonMetadataProvider);
 
+        pokemonFactory = new RocketPokemonFactory(); // RoketPokemonFactoru
+
         pokemon = mock(Pokemon.class);
         when(pokemon.getIndex()).thenReturn(1);
         when(pokemon.getName()).thenReturn("Bulbasaur");
@@ -39,10 +41,10 @@ public class IPokemonFactoryTest {
     public void testCreatePokemon() throws PokedexException {
         Pokemon pokemon = pokemonFactory.createPokemon(1, 613, 64, 4000, 4);
         assertNotNull(pokemon);
-        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getIndex(), 1);
-        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getCp(), 613);
-        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getHp(), 64);
-        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getDust(), 4000);
-        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getCandy(), 4);
+        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getIndex(), pokemon.getIndex());
+        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getCp(), pokemon.getCp());
+        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getHp(), pokemon.getHp());
+        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getDust(), pokemon.getDust());
+        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getCandy(), pokemon.getCandy());
     }
 }
