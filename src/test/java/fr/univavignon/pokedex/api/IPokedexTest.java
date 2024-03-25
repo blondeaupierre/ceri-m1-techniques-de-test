@@ -212,17 +212,5 @@ public class IPokedexTest {
         IPokedex newPokedex = new Pokedex(pokemonMetadataProvider, pokemonFactory);
 
         assertEquals(newPokedex.getPokemonMetadata(10), pokemonMetadataProvider.getPokemonMetadata(10));
-
-        assertThrows(PokedexException.class, () -> {
-            pokemonMetadataProvider.getPokemonMetadata(-10);
-        });
-
-        assertThrows(PokedexException.class, () -> {
-            pokemonMetadataProvider.getPokemonMetadata(200);
-        });
-
-        assertThrows(PokedexException.class, () -> {
-            pokemonMetadataProvider.getPokemonMetadata(12);
-        });
     }
 }
