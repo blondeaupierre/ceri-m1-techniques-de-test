@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -44,5 +44,6 @@ public class IPokemonFactoryTest {
         assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getHp(), 64);
         assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getDust(), 4000);
         assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getCandy(), 4);
+        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getName(), "Bulbasaur");
     }
 }

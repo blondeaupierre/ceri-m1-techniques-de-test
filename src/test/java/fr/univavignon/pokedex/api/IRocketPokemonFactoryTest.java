@@ -16,16 +16,9 @@ public class IRocketPokemonFactoryTest {
     @Mock
     private static Pokemon pokemon;
 
-    @Mock
-    private static IPokemonMetadataProvider pokemonMetadataProvider;
-
     @BeforeAll
-    public static void setUp() throws PokedexException {
-        pokemonMetadataProvider = mock(IPokemonMetadataProvider.class);
-        when(pokemonMetadataProvider.getPokemonMetadata(1)).thenReturn(new PokemonMetadata(1, "Bulbasaur", 126, 126, 90));
-        pokemonFactory = new PokemonFactory(pokemonMetadataProvider);
-
-        pokemonFactory = new RocketPokemonFactory(); // RoketPokemonFactoru
+    public static void setUp() {
+        pokemonFactory = new RocketPokemonFactory(); // RocketPokemonFactory
 
         pokemon = mock(Pokemon.class);
         when(pokemon.getIndex()).thenReturn(1);
@@ -34,17 +27,16 @@ public class IRocketPokemonFactoryTest {
         when(pokemon.getHp()).thenReturn(64);
         when(pokemon.getDust()).thenReturn(4000);
         when(pokemon.getCandy()).thenReturn(4);
-
     }
 
     @Test
     public void testCreatePokemon() throws PokedexException {
-        Pokemon pokemon = pokemonFactory.createPokemon(1, 613, 64, 4000, 4);
-        assertNotNull(pokemon);
+        assertNotNull(pokemonFactory.createPokemon(1, 613, 64, 4000, 4));
         assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getIndex(), pokemon.getIndex());
         assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getCp(), pokemon.getCp());
         assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getHp(), pokemon.getHp());
         assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getDust(), pokemon.getDust());
         assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getCandy(), pokemon.getCandy());
+        assertEquals(pokemonFactory.createPokemon(1, 613, 64, 4000, 4).getName(), pokemon.getName());
     }
 }
