@@ -25,7 +25,7 @@ https://blondeaupierre.github.io/ceri-m1-techniques-de-test/testapidocs/fr/univa
 
 - IV 0 ou 1 alors c'est un double dans notre cas + compris entre 0 et 15 normalement.
 
-- Via codecov : éléments de la fonction non testées (si index non existant et stats = 1000 si index < 0).
+- Via codecov : éléments de la fonction non testés (si index non existant et stats = 1000 si index < 0).
 
 - Checkstyle ok.
 
